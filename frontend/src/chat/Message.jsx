@@ -91,6 +91,8 @@ export default function useMessageLogic() {
     useEffect(() => {
         const myUserId = localStorage.getItem("userId");
 
+        console.log(myUserId)
+
         // ✅ FIX 3: Removed [activeChat] dependency. Socket connects ONCE.
         connectSocket(myUserId, async (incomingMessage) => {
             if (incomingMessage.senderId === myUserId) return;
@@ -243,6 +245,7 @@ export default function useMessageLogic() {
         if (!message.trim() || !activeChat?.friendId) return;
 
         const myUserId = localStorage.getItem("userId");
+        console.log(myUserId)
         const payload = {
             senderId: myUserId,
             receiverId: activeChat.friendId,

@@ -25,6 +25,8 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
 
+      
+
       window.location.href = "/dashboard";
     } catch {
       alert("Invalid credentials ❌");

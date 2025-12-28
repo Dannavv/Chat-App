@@ -84,6 +84,7 @@ export default function Dashboard() {
             try {
                 const res = await api.get("/dashboard");
                 setDashboard(res.data);
+                console.log(res.data)
             } catch (err) {
                 const status = err.response?.status;
                 if (status === 401 || status === 403) {
