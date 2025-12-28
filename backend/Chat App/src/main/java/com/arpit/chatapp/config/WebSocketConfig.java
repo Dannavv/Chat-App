@@ -13,13 +13,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
-        // 🔔 Client subscribes here
         registry.enableSimpleBroker("/topic", "/queue");
-
-        // 📤 Client sends messages here
         registry.setApplicationDestinationPrefixes("/app");
-
-        // 👤 Enables /user/queue (optional but recommended)
         registry.setUserDestinationPrefix("/user");
     }
 
@@ -28,13 +23,19 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(
+                        // 🔹 Local
                         "http://localhost:5173",
                         "http://127.0.0.1:5173",
                         "http://localhost:3000",
                         "http://127.0.0.1:3000",
                         "http://localhost:5500",
-                        "http://127.0.0.1:5500"
+                        "http://127.0.0.1:5500",
+
+                        // 🔹 Vercel (PROD)
+                        "https://chat-app-delta-puce.vercel.app",
+                        "https://chat-app-git-main-dannavvs-projects.vercel.app",
+                        "https://chat-l374ler32-dannavvs-projects.vercel.app"
                 )
-                .withSockJS(); // 🔥 REQUIRED for SockJS
+                .withSockJS(); // ✅ REQUIRED
     }
 }

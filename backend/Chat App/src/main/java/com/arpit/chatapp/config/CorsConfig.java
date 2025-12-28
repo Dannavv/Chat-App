@@ -16,14 +16,20 @@ public class CorsConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ EXACT origins only (no *)
+        // ✅ Explicit allowed origins (LOCAL + PROD)
         config.setAllowedOrigins(List.of(
+                // 🔹 Local
                 "http://localhost:5173",
                 "http://127.0.0.1:5173",
                 "http://localhost:3000",
                 "http://127.0.0.1:3000",
                 "http://localhost:5500",
-                "http://127.0.0.1:5500"
+                "http://127.0.0.1:5500",
+
+                // 🔹 Vercel (PROD)
+                "https://chat-app-delta-puce.vercel.app",
+                "https://chat-app-git-main-dannavvs-projects.vercel.app",
+                "https://chat-l374ler32-dannavvs-projects.vercel.app"
         ));
 
         config.setAllowedMethods(List.of(
@@ -31,7 +37,7 @@ public class CorsConfig {
         ));
 
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // ✅ valid with explicit origins
+        config.setAllowCredentials(true); // ✅ REQUIRED for JWT cookies / headers
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
