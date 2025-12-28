@@ -15,25 +15,27 @@ export default function Login() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  const navigate = useNavigate();
+
   // 🔐 EMAIL + PASSWORD LOGIN
   const submit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await loginUser(form);
+  e.preventDefault();
+  setLoading(true);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userId", res.data.userId);
+  try {
+    const res = await loginUser(form);
 
-      
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("userId", res.data.userId);
 
-      window.location.href = "/dashboard";
-    } catch {
-      alert("Invalid credentials ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
+    // ✅ CLIENT-SIDE navigation
+    navigate("/dashboard");
+  } catch {
+    alert("Invalid credentials ❌");
+  } finally {
+    setLoading(false);
+  }
+};
 
   // 🔐 GOOGLE LOGIN
   const googleSuccess = async (credentialResponse) => {
